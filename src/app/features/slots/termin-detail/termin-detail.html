@@ -1,0 +1,77 @@
+@switch (zustand()) {
+@case ('laden') {
+<p class="meldung">Termin wird geladen …</p>
+}
+
+@case ('nicht-gefunden') {
+<section class="leer">
+    <h1>Termin nicht gefunden</h1>
+    <p>Diesen Termin gibt es nicht oder nicht mehr. Vielleicht wurde er abgesagt.</p>
+    <a routerLink="/termine" class="btn-primary">Zu allen Terminen</a>
+</section>
+}
+
+@case ('fehler') {
+<section class="leer">
+    <h1>Termin konnte nicht geladen werden</h1>
+    <p>Prüfe deine Internetverbindung und lade die Seite neu.</p>
+</section>
+}
+
+@case ('fertig') {
+@if (slot(); as s) {
+<a routerLink="/termine" class="zurueck">Zurück zu den Terminen</a>
+
+<div class="detail">
+    <article class="info">
+        <h1>{{ s.jobTitle }}</h1>
+        <p class="betrieb">
+            {{ s.companyName }}<br />
+            {{ s.address }}, {{ s.city }}
+        </p>
+
+        <h2>Wann</h2>
+        <p class="datum">{{ datum() }}, {{ uhrzeit() }}</p>
+        <app-zollstock-leiste [startsAt]="s.startsAt" [endsAt]="s.endsAt" />
+
+        <h2>Ablauf des Tages</h2>
+        <p class="beschreibung">{{ s.description }}</p>
+
+        @if (s.dressCode) {
+        <h2>Was du anziehst</h2>
+        <p>{{ s.dressCode }}</p>
+        }
+    </article>
+
+    <aside class="buchen" aria-live="polite">
+        <p class="plaetze" [class.voll]="s.freeSpots === 0">{{ platzText() }}</p>
+
+        @if (buchung() === 'gebucht') {
+        <p class="erfolg">Platz gebucht. Du bekommst gleich eine Bestätigung per E-Mail.</p>
+        <a routerLink="/meine-buchungen">Zu meinen Buchungen</a>
+        } @else if (!authService.isLoggedIn()) {
+        <p>Melde dich an, um einen Platz zu buchen.</p>
+        <a routerLink="/login" [queryParams]="{ returnUrl: '/termine/' + s.id }" class="btn-primary">
+            Anmelden und buchen
+        </a>
+        <p class="klein">Noch kein Konto? <a routerLink="/registrieren">Registrieren</a></p>
+        } @else if (!istTeilnehmer()) {
+        <p class="klein">Plätze buchen können nur Teilnehmerinnen und Teilnehmer.</p>
+        } @else if (s.freeSpots === 0) {
+        <p>Dieser Termin ist ausgebucht.</p>
+        <a routerLink="/termine">Andere Termine ansehen</a>
+        } @else {
+        <button type="button" class="btn-primary" (click)="buchen()" [disabled]="buchung() === 'laeuft'">
+            {{ buchung() === 'laeuft' ? 'Wird gebucht …' : 'Platz buchen' }}
+        </button>
+        <p class="klein">Kostenlos. Stornieren kannst du bis 24 Stunden vorher.</p>
+        }
+
+        @if (buchungsFehler()) {
+        <p class="fehler">{{ buchungsFehler() }}</p>
+        }
+    </aside>
+</div>
+}
+}
+}

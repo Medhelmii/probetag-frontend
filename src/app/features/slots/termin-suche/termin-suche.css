@@ -1,0 +1,79 @@
+h1 {
+    margin: var(--space-5) 0 var(--space-3);
+}
+
+/* Die Filter stehen direkt auf Beton, nicht in einer Karte */
+.filter {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+}
+
+.feld {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    flex: 1 1 200px;
+    max-width: 280px;
+}
+
+.feld label {
+    font-weight: 500;
+}
+
+.feld input {
+    padding: 10px 12px;
+    background: var(--papier);
+    border: 1px solid var(--feldrand);
+    border-radius: var(--radius-sm);
+    color: var(--tinte);
+    font: inherit;
+}
+
+.feld input:hover {
+    border-color: var(--tinte);
+}
+
+.filter .btn-primary {
+    margin-top: 0;
+}
+
+/* "Filter löschen" sieht aus wie ein Link, ist aber ein Button (es passiert eine Aktion) */
+.link {
+    min-height: 44px;
+    padding: 0;
+    border: none;
+    background: none;
+    color: var(--blaumann);
+    font: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+}
+
+.anzahl,
+.meldung {
+    margin: 0 0 var(--space-3);
+    color: var(--grafit);
+}
+
+.meldung.fehler {
+    color: var(--fehler);
+}
+
+.leer {
+    max-width: 60ch;
+    padding: var(--space-4) 0;
+}
+
+.leer p {
+    margin: 0;
+}
+
+.liste {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--space-3);
+}

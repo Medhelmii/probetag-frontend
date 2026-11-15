@@ -1,0 +1,46 @@
+<h1>Termine</h1>
+
+<form class="filter" [formGroup]="form" (ngSubmit)="suchen()" role="search">
+    <div class="feld">
+        <label for="city">Stadt</label>
+        <input id="city" formControlName="city" placeholder="z. B. Freiburg" autocomplete="address-level2" />
+    </div>
+    <div class="feld">
+        <label for="sector">Branche</label>
+        <input id="sector" formControlName="sector" placeholder="z. B. Handwerk" />
+    </div>
+    <button type="submit" class="btn-primary">Suchen</button>
+    @if (hatFilter()) {
+    <button type="button" class="link" (click)="filterLoeschen()">Filter löschen</button>
+    }
+</form>
+
+@switch (zustand()) {
+@case ('laden') {
+<p class="meldung">Termine werden geladen …</p>
+}
+@case ('fehler') {
+<p class="meldung fehler">
+    Die Termine konnten nicht geladen werden. Prüfe deine Internetverbindung und lade die Seite neu.
+</p>
+}
+@case ('fertig') {
+@if (termine().length === 0) {
+<div class="leer">
+    @if (hatFilter()) {
+    <p>Für diese Suche gibt es gerade keine Termine. Probier eine andere Stadt oder Branche.</p>
+    <button type="button" class="btn-primary" (click)="filterLoeschen()">Alle Termine anzeigen</button>
+    } @else {
+    <p>Im Moment sind keine Termine ausgeschrieben. Schau in ein paar Tagen wieder vorbei.</p>
+    }
+</div>
+} @else {
+<p class="anzahl">{{ termine().length === 1 ? '1 Termin' : termine().length + ' Termine' }}</p>
+<div class="liste">
+    @for (termin of termine(); track termin.id) {
+    <app-terminzettel [slot]="termin" />
+    }
+</div>
+}
+}
+}

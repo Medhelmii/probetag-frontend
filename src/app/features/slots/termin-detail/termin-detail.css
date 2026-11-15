@@ -1,0 +1,117 @@
+.meldung {
+    margin-top: var(--space-5);
+    color: var(--grafit);
+}
+
+.leer {
+    max-width: 60ch;
+    padding-top: var(--space-5);
+}
+
+.leer .btn-primary,
+.buchen .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.zurueck {
+    display: inline-block;
+    margin-top: var(--space-4);
+}
+
+/* Zwei Spalten auf breiten Bildschirmen: Infos links, Buchen rechts */
+.detail {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    margin-top: var(--space-3);
+}
+
+@media (min-width: 900px) {
+    .detail {
+        grid-template-columns: minmax(0, 1fr) 320px;
+        align-items: start;
+    }
+
+    .buchen {
+        position: sticky;
+        top: var(--space-4);
+    }
+}
+
+.info h1 {
+    margin: 0;
+}
+
+.info h2 {
+    margin: var(--space-4) 0 var(--space-1);
+    font-size: 18px;
+    line-height: 24px;
+}
+
+.info p {
+    margin: 0;
+    max-width: 65ch;
+}
+
+.betrieb {
+    margin-top: var(--space-1) !important;
+    color: var(--grafit);
+}
+
+.datum {
+    margin-bottom: var(--space-2) !important;
+    font-family: var(--font-zahlen);
+    font-size: 17px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Zeilenumbrüche aus der Beschreibung des Unternehmens behalten */
+.beschreibung {
+    white-space: pre-line;
+}
+
+.buchen {
+    padding: var(--space-4);
+    background: var(--papier);
+    border: 1px solid var(--linie);
+    border-radius: var(--radius-md);
+}
+
+.buchen p {
+    margin: 0 0 var(--space-3);
+}
+
+.buchen .btn-primary {
+    width: 100%;
+    justify-content: center;
+    margin-top: 0;
+}
+
+.plaetze {
+    font-weight: 600;
+    color: var(--erfolg);
+}
+
+.plaetze.voll {
+    color: var(--fehler);
+}
+
+.klein {
+    margin-top: var(--space-2) !important;
+    color: var(--grafit);
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.erfolg {
+    color: var(--erfolg);
+    font-weight: 500;
+}
+
+.fehler {
+    margin-top: var(--space-3) !important;
+    color: var(--fehler);
+}

@@ -17,9 +17,9 @@ export function stundeInBerlin(iso: string): number {
 
 /** 8.5 -> "8:30", 15 -> "15:00", 24.33 -> "0:20" (nach Mitternacht) */
 export function alsUhrzeit(stunde: number): string {
-  const h = Math.floor(stunde) % 24;
-  const m = Math.round((stunde - Math.floor(stunde)) * 60);
-  return `${h}:${m.toString().padStart(2, '0')}`;
+    const h = Math.floor(stunde) % 24;
+    const m = Math.round((stunde - Math.floor(stunde)) * 60);
+    return `${h}:${m.toString().padStart(2, '0')}`;
 }
 const datumFormat = new Intl.DateTimeFormat('de-DE', {
     timeZone: ZONE,
@@ -31,4 +31,13 @@ const datumFormat = new Intl.DateTimeFormat('de-DE', {
 /** "2026-11-24T07:00:00Z" -> "Dienstag, 24. November" */
 export function datumLang(iso: string): string {
     return datumFormat.format(new Date(iso));
+}
+/** "8:00 bis 15:00 Uhr", auch über Mitternacht ("21:00 bis 6:00 Uhr") */
+export function zeitspanne(startIso: string, endIso: string): string {
+    const beginn = stundeInBerlin(startIso);
+    let ende = stundeInBerlin(endIso);
+    if (ende <= beginn) {
+        ende += 24;
+    }
+    return `${alsUhrzeit(beginn)} bis ${alsUhrzeit(ende)} Uhr`;
 }
