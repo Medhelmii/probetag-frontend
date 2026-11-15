@@ -1,0 +1,59 @@
+.status {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    background: var(--blaumann);
+    color: var(--papier);
+}
+
+/* Der Name als Wortmarke, mit einem kurzen Stück Zollstock darunter */
+.status strong {
+    position: relative;
+    padding-bottom: 6px;
+    font-family: var(--font-condensed);
+    font-size: 24px;
+    line-height: 1;
+    font-weight: 700;
+}
+
+.status strong::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 28px;
+    height: 4px;
+    background: var(--zollstock);
+}
+
+.status a {
+    color: var(--papier);
+}
+
+.status a:focus-visible,
+.status button:focus-visible {
+    outline-color: var(--zollstock);
+}
+
+.status button {
+    margin-left: auto;
+    min-height: 36px;
+    padding: 0 var(--space-3);
+    border: 1px solid var(--papier);
+    border-radius: var(--radius-md);
+    background: transparent;
+    color: var(--papier);
+    font: 500 15px/1 var(--font-sans);
+    cursor: pointer;
+}
+
+.status button:hover {
+    background: var(--blaumann-dunkel);
+}
+
+main {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 var(--space-4) var(--space-5);
+}

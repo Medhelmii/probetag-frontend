@@ -1,1 +1,191 @@
-/* You can add global styles to this file, and also import other style files */
+/* =========================================================
+   Probetag – Design-Grundlagen
+   ========================================================= */
+
+:root {
+    /* Farben */
+    --beton: #ecebe6;
+    --papier: #ffffff;
+    --blaumann: #1f3b5c;
+    --blaumann-dunkel: #142940;
+    --zollstock: #f2c230;
+    --tinte: #1e2329;
+    --grafit: #5a6370;
+    --linie: #cfcdc5;
+    --feldrand: #80858c;
+    --erfolg: #2f6b45;
+    --fehler: #a8321e;
+
+    /* Schriften */
+    --font-condensed: "Barlow Semi Condensed", "Arial Narrow", sans-serif;
+    --font-sans: "Barlow", system-ui, sans-serif;
+    --font-zahlen: "Barlow Condensed", "Arial Narrow", sans-serif;
+
+    /* Abstände */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 16px;
+    --space-4: 24px;
+    --space-5: 40px;
+
+    /* Rundungen */
+    --radius-sm: 3px;
+    --radius-md: 6px;
+    --radius-full: 999px;
+}
+
+/* ---------- Grundlagen ---------- */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--beton);
+    color: var(--tinte);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 24px;
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--font-condensed);
+    color: var(--tinte);
+}
+
+h1 {
+    font-size: 32px;
+    line-height: 38px;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 20px;
+    line-height: 26px;
+    font-weight: 600;
+}
+
+a {
+    color: var(--blaumann);
+    text-underline-offset: 3px;
+}
+
+a:hover {
+    color: var(--blaumann-dunkel);
+}
+
+/* Sichtbarer Fokus für Tastatur-Bedienung, überall gleich */
+:focus-visible {
+    outline: 3px solid var(--blaumann);
+    outline-offset: 2px;
+}
+
+/* ---------- Karte für Login und Registrierung ---------- */
+
+.card {
+    max-width: 440px;
+    margin: var(--space-5) auto;
+    padding: var(--space-4);
+    background: var(--papier);
+    border: 1px solid var(--linie);
+    border-radius: var(--radius-md);
+}
+
+.card h1 {
+    margin: 0 0 var(--space-4);
+}
+
+/* ---------- Formulare ---------- */
+
+.card form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+.card label {
+    margin-top: var(--space-3);
+    font-weight: 500;
+}
+
+.card input,
+.card textarea {
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--papier);
+    border: 1px solid var(--feldrand);
+    border-radius: var(--radius-sm);
+    color: var(--tinte);
+    font: inherit;
+}
+
+.card input:hover,
+.card textarea:hover {
+    border-color: var(--tinte);
+}
+
+.card input.ng-touched.ng-invalid,
+.card textarea.ng-touched.ng-invalid {
+    border-color: var(--fehler);
+}
+
+.optional {
+    font-weight: 400;
+    color: var(--grafit);
+}
+
+.field-error {
+    margin: 0;
+    color: var(--fehler);
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.form-error {
+    margin: var(--space-3) 0 0;
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--fehler);
+    border-radius: var(--radius-sm);
+    background: var(--papier);
+    color: var(--fehler);
+}
+
+.hint {
+    margin: var(--space-4) 0 0;
+    color: var(--grafit);
+}
+
+/* ---------- Buttons ---------- */
+
+.btn-primary {
+    min-height: 44px;
+    margin-top: var(--space-4);
+    padding: 0 var(--space-3);
+    border: 1px solid var(--blaumann);
+    border-radius: var(--radius-md);
+    background: var(--blaumann);
+    color: var(--papier);
+    font: 500 16px/1 var(--font-sans);
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background: var(--blaumann-dunkel);
+    border-color: var(--blaumann-dunkel);
+}
+
+.btn-primary:disabled {
+    opacity: 0.55;
+    cursor: wait;
+}

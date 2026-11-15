@@ -1,0 +1,129 @@
+<section class="card">
+    <h1>Konto erstellen</h1>
+
+    <div class="tabs" role="tablist">
+        <button type="button" role="tab" [class.active]="accountType() === 'PARTICIPANT'"
+            (click)="selectType('PARTICIPANT')">
+            Ich suche einen Probetag
+        </button>
+        <button type="button" role="tab" [class.active]="accountType() === 'COMPANY'" (click)="selectType('COMPANY')">
+            Ich bin ein Unternehmen
+        </button>
+    </div>
+
+    @if (accountType() === 'PARTICIPANT') {
+    <form [formGroup]="participantForm" (ngSubmit)="submit()" novalidate>
+        <label for="firstName">Vorname</label>
+        <input id="firstName" formControlName="firstName" autocomplete="given-name" />
+        @if (showError(participantForm.controls.firstName)) {
+        <p class="field-error">Bitte gib deinen Vornamen ein.</p>
+        }
+
+        <label for="lastName">Nachname</label>
+        <input id="lastName" formControlName="lastName" autocomplete="family-name" />
+        @if (showError(participantForm.controls.lastName)) {
+        <p class="field-error">Bitte gib deinen Nachnamen ein.</p>
+        }
+
+        <label for="p-email">E-Mail</label>
+        <input id="p-email" type="email" formControlName="email" autocomplete="email" />
+        @if (showError(participantForm.controls.email)) {
+        <p class="field-error">Bitte gib eine gültige E-Mail-Adresse ein.</p>
+        }
+
+        <label for="p-password">Passwort</label>
+        <input id="p-password" type="password" formControlName="password" autocomplete="new-password" />
+        @if (showError(participantForm.controls.password)) {
+        <p class="field-error">Mindestens 8 Zeichen.</p>
+        }
+
+        <label for="phone">Telefon <span class="optional">(optional)</span></label>
+        <input id="phone" type="tel" formControlName="phone" autocomplete="tel" />
+
+        <label for="motivation">Was interessiert dich? <span class="optional">(optional)</span></label>
+        <textarea id="motivation" rows="3" formControlName="motivation"></textarea>
+
+        @if (errorMessage()) {
+        <p class="form-error">{{ errorMessage() }}</p>
+        }
+        @for (entry of serverErrors() | keyvalue; track entry.key) {
+        <p class="field-error">{{ entry.key }}: {{ entry.value }}</p>
+        }
+
+        <button type="submit" class="btn-primary" [disabled]="loading()">
+            {{ loading() ? 'Wird erstellt …' : 'Konto erstellen' }}
+        </button>
+    </form>
+    } @else {
+    <form [formGroup]="companyForm" (ngSubmit)="submit()" novalidate>
+        <label for="name">Name des Unternehmens</label>
+        <input id="name" formControlName="name" autocomplete="organization" />
+        @if (showError(companyForm.controls.name)) {
+        <p class="field-error">Bitte gib den Namen des Unternehmens ein.</p>
+        }
+
+        <label for="sector">Branche</label>
+        <input id="sector" formControlName="sector" placeholder="z. B. Handwerk, Pflege, IT" />
+        @if (showError(companyForm.controls.sector)) {
+        <p class="field-error">Bitte gib eine Branche ein.</p>
+        }
+
+        <label for="address">Straße und Hausnummer</label>
+        <input id="address" formControlName="address" autocomplete="street-address" />
+        @if (showError(companyForm.controls.address)) {
+        <p class="field-error">Bitte gib die Adresse ein.</p>
+        }
+
+        <div class="row">
+            <div>
+                <label for="postalCode">PLZ</label>
+                <input id="postalCode" formControlName="postalCode" inputmode="numeric" maxlength="5"
+                    autocomplete="postal-code" />
+            </div>
+            <div class="grow">
+                <label for="city">Stadt</label>
+                <input id="city" formControlName="city" autocomplete="address-level2" />
+            </div>
+        </div>
+        @if (showError(companyForm.controls.postalCode)) {
+        <p class="field-error">Die PLZ muss genau 5 Ziffern haben.</p>
+        }
+        @if (showError(companyForm.controls.city)) {
+        <p class="field-error">Bitte gib die Stadt ein.</p>
+        }
+
+        <label for="c-email">E-Mail</label>
+        <input id="c-email" type="email" formControlName="email" autocomplete="email" />
+        @if (showError(companyForm.controls.email)) {
+        <p class="field-error">Bitte gib eine gültige E-Mail-Adresse ein.</p>
+        }
+
+        <label for="c-password">Passwort</label>
+        <input id="c-password" type="password" formControlName="password" autocomplete="new-password" />
+        @if (showError(companyForm.controls.password)) {
+        <p class="field-error">Mindestens 8 Zeichen.</p>
+        }
+
+        <label for="description">Beschreibung <span class="optional">(optional)</span></label>
+        <textarea id="description" rows="3" formControlName="description"></textarea>
+
+        <p class="info">Nach der Registrierung prüfen wir dein Unternehmen. Deine Termine werden sichtbar, sobald es
+            freigeschaltet ist.</p>
+
+        @if (errorMessage()) {
+        <p class="form-error">{{ errorMessage() }}</p>
+        }
+        @for (entry of serverErrors() | keyvalue; track entry.key) {
+        <p class="field-error">{{ entry.key }}: {{ entry.value }}</p>
+        }
+
+        <button type="submit" class="btn-primary" [disabled]="loading()">
+            {{ loading() ? 'Wird erstellt …' : 'Unternehmen registrieren' }}
+        </button>
+    </form>
+    }
+
+    <p class="hint">
+        Schon ein Konto? <a routerLink="/login">Anmelden</a>
+    </p>
+</section>

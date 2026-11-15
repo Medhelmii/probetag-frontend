@@ -1,0 +1,17 @@
+import { Component, computed, inject } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+
+@Component({
+    selector: 'app-header',
+    imports: [RouterLink, RouterLinkActive],
+    templateUrl: './header.html',
+    styleUrl: './header.css',
+})
+export class Header {
+    protected readonly authService = inject(AuthService);
+
+    protected readonly isParticipant = computed(() => this.authService.role() === 'PARTICIPANT');
+    protected readonly isCompany = computed(() => this.authService.role() === 'COMPANY');
+    protected readonly isAdmin = computed(() => this.authService.role() === 'ADMIN');
+}

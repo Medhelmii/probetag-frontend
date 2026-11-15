@@ -1,0 +1,25 @@
+<section class="start">
+  <h1>Probier einen Beruf einen Tag lang aus</h1>
+  <p>
+    Betriebe aus Handwerk, Pflege und Gastronomie in Freiburg zeigen dir ihren Arbeitsalltag.
+    Du suchst dir einen Termin aus, buchst einen Platz und bist einen Tag lang dabei.
+  </p>
+
+  <div class="aktionen">
+    <a routerLink="/termine" class="btn-primary">Termine ansehen</a>
+    @if (!authService.isLoggedIn()) {
+      <a routerLink="/registrieren">Als Betrieb Termine anbieten</a>
+    }
+  </div>
+</section>
+
+@if (naechsteTermine().length > 0) {
+  <section class="naechste">
+    <h2>Die nächsten Termine</h2>
+    <div class="liste">
+      @for (termin of naechsteTermine(); track termin.id) {
+        <app-terminzettel [slot]="termin" />
+      }
+    </div>
+  </section>
+}

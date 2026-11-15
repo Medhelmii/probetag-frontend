@@ -1,0 +1,68 @@
+:host {
+    display: block;
+}
+
+.leiste {
+    position: relative;
+    height: 22px;
+    border: 1px solid var(--tinte);
+    border-radius: var(--radius-sm);
+    background: var(--papier);
+    overflow: hidden;
+}
+
+/* Das gelbe Feld: die Zeit des Probetags */
+.spanne {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background: var(--zollstock);
+}
+
+/* Die Striche: lange pro Stunde, kurze pro halbe Stunde. Sie liegen ÜBER dem gelben Feld. */
+.leiste::before,
+.leiste::after {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    pointer-events: none;
+}
+
+.leiste::before {
+    height: 7px;
+    background: repeating-linear-gradient(to right,
+            var(--tinte) 0 1px,
+            transparent 1px calc(100% / (var(--stunden) * 2)));
+}
+
+.leiste::after {
+    height: 12px;
+    background: repeating-linear-gradient(to right,
+            var(--tinte) 0 1px,
+            transparent 1px calc(100% / var(--stunden)));
+}
+
+.skala {
+    position: relative;
+    height: 18px;
+    margin-top: 3px;
+    font-family: var(--font-zahlen);
+    font-size: 13px;
+    line-height: 18px;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    color: var(--grafit);
+}
+
+.skala span {
+    position: absolute;
+    top: 0;
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
+/* Beginn und Ende: kräftiger und in Tinte */
+.skala span.wichtig {
+    font-weight: 600;
+    color: var(--tinte);
+}

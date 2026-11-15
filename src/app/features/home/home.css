@@ -1,0 +1,44 @@
+.start {
+    max-width: 640px;
+    padding-top: var(--space-5);
+}
+
+.start h1 {
+    margin: 0 0 var(--space-3);
+    font-size: 40px;
+    line-height: 44px;
+}
+
+.start p {
+    margin: 0;
+    max-width: 60ch;
+    color: var(--grafit);
+}
+
+.aktionen {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4);
+    margin-top: var(--space-2);
+}
+
+.aktionen .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.naechste {
+    margin-top: var(--space-5);
+}
+
+.naechste h2 {
+    margin: 0 0 var(--space-3);
+}
+
+.liste {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--space-3);
+}

@@ -1,0 +1,12 @@
+<a class="zettel" [routerLink]="['/termine', slot().id]">
+    <div class="kopf">
+        <div>
+            <h3 class="beruf">{{ slot().jobTitle }}</h3>
+            <p class="betrieb">{{ slot().companyName }}, {{ slot().city }}</p>
+        </div>
+        <span class="plakette" [class.voll]="ausgebucht()">{{ platzText() }}</span>
+    </div>
+
+    <p class="datum">{{ datum() }}</p>
+    <app-zollstock-leiste [startsAt]="slot().startsAt" [endsAt]="slot().endsAt" />
+</a>

@@ -1,0 +1,100 @@
+.kopf {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2) var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    background: var(--blaumann);
+    color: var(--papier);
+}
+
+.kopf a {
+    color: var(--papier);
+    text-decoration: none;
+}
+
+.kopf a:focus-visible,
+.kopf button:focus-visible {
+    outline-color: var(--zollstock);
+}
+
+/* Wortmarke mit kurzem Zollstock-Strich */
+.marke {
+    position: relative;
+    padding-bottom: 6px;
+    font-family: var(--font-condensed);
+    font-size: 24px;
+    line-height: 1;
+    font-weight: 700;
+}
+
+.marke::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 28px;
+    height: 4px;
+    background: var(--zollstock);
+}
+
+nav {
+    display: flex;
+    gap: var(--space-4);
+}
+
+/* Menü-Links: der aktive bekommt den Zollstock-Strich */
+nav a,
+.konto a {
+    padding: var(--space-1) 0;
+    border-bottom: 3px solid transparent;
+    font-weight: 500;
+}
+
+nav a:hover,
+.konto a:hover {
+    border-bottom-color: var(--papier);
+}
+
+nav a.aktiv,
+.konto a.aktiv {
+    border-bottom-color: var(--zollstock);
+}
+
+.konto {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-left: auto;
+}
+
+.email {
+    font-size: 14px;
+    opacity: 0.85;
+}
+
+.konto .registrieren,
+.konto button {
+    min-height: 36px;
+    padding: 0 var(--space-3);
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--papier);
+    border-radius: var(--radius-md);
+    background: transparent;
+    color: var(--papier);
+    font: 500 15px/1 var(--font-sans);
+    cursor: pointer;
+}
+
+.konto .registrieren:hover,
+.konto button:hover {
+    background: var(--blaumann-dunkel);
+}
+
+/* Auf dem Handy: E-Mail ausblenden, damit alles in die Leiste passt */
+@media (max-width: 600px) {
+    .email {
+        display: none;
+    }
+}

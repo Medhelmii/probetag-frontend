@@ -1,0 +1,9 @@
+<div class="leiste" [style.--stunden]="stunden()" role="img" [attr.aria-label]="beschreibung()">
+    <div class="spanne" [style.left.%]="links()" [style.width.%]="breite()"></div>
+</div>
+
+<div class="skala" aria-hidden="true">
+    @for (b of beschriftungen(); track b.stunde) {
+    <span [class.wichtig]="b.wichtig" [style.left.%]="b.links">{{ b.text }}</span>
+    }
+</div>

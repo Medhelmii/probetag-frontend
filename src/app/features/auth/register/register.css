@@ -1,0 +1,49 @@
+.tabs {
+    display: flex;
+    gap: var(--space-2);
+    margin-bottom: var(--space-2);
+}
+
+.tabs button {
+    flex: 1;
+    min-height: 44px;
+    padding: 0 var(--space-2);
+    border: 1px solid var(--blaumann);
+    border-radius: var(--radius-md);
+    background: var(--papier);
+    color: var(--blaumann);
+    font: 500 15px/1.2 var(--font-sans);
+    cursor: pointer;
+}
+
+.tabs button:hover {
+    background: var(--beton);
+}
+
+.tabs button.active {
+    background: var(--blaumann);
+    color: var(--papier);
+}
+
+.row {
+    display: flex;
+    gap: var(--space-3);
+}
+
+.row>div:first-child {
+    width: 110px;
+}
+
+.grow {
+    flex: 1;
+}
+
+.info {
+    margin: var(--space-3) 0 0;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-sm);
+    background: var(--beton);
+    color: var(--tinte);
+    font-size: 14px;
+    line-height: 20px;
+}
