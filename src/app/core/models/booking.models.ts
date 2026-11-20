@@ -12,4 +12,5 @@ export interface Booking {
     companyName: string;
     address: string;
     city: string;
+    reviewed: boolean;
 }

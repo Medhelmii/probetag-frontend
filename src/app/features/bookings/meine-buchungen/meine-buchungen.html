@@ -1,0 +1,104 @@
+<h1>Meine Buchungen</h1>
+
+@switch (zustand()) {
+@case ('laden') {
+<p class="meldung">Buchungen werden geladen …</p>
+}
+
+@case ('fehler') {
+<p class="meldung fehler">Deine Buchungen konnten nicht geladen werden.</p>
+<button type="button" class="btn-primary" (click)="laden()">Nochmal versuchen</button>
+}
+
+@case ('fertig') {
+@if (buchungen().length === 0) {
+<div class="leer">
+    <p>Du hast noch keinen Probetag gebucht. Such dir einen Beruf aus, der dich interessiert.</p>
+    <a routerLink="/termine" class="btn-primary">Termine finden</a>
+</div>
+} @else {
+<h2>Kommende Probetage</h2>
+
+@if (kommende().length === 0) {
+<p class="meldung">
+    Gerade steht nichts an. <a routerLink="/termine">Neue Termine finden</a>
+</p>
+} @else {
+<ul class="liste">
+    @for (b of kommende(); track b.id) {
+    <li class="buchung">
+        <div class="kopf">
+            <div>
+                <h3><a [routerLink]="['/termine', b.slotId]">{{ b.jobTitle }}</a></h3>
+                <p class="betrieb">{{ b.companyName }}, {{ b.address }}, {{ b.city }}</p>
+            </div>
+            <span class="status gebucht">{{ statusText(b) }}</span>
+        </div>
+
+        <p class="datum">{{ datum(b) }}, {{ uhrzeit(b) }}</p>
+        <app-zollstock-leiste [startsAt]="b.startsAt" [endsAt]="b.endsAt" />
+
+        @if (b.dressCode) {
+        <p class="klein">Kleidung: {{ b.dressCode }}</p>
+        }
+
+        <div class="aktionen">
+            @if (!kannStornieren(b)) {
+            <p class="klein">
+                Stornieren geht nur bis 24 Stunden vorher. Wenn du nicht kommen kannst, ruf bitte im Betrieb an.
+            </p>
+            } @else if (nachfrageId() === b.id) {
+            <p class="frage">Möchtest du diese Buchung wirklich stornieren? Dein Platz wird wieder frei.</p>
+            <button type="button" class="btn-gefahr" (click)="stornieren(b)" [disabled]="laeuftId() === b.id">
+                {{ laeuftId() === b.id ? 'Wird storniert …' : 'Ja, stornieren' }}
+            </button>
+            <button type="button" class="btn-neben" (click)="abbrechen()">Behalten</button>
+            } @else {
+            <button type="button" class="btn-neben" (click)="nachfragen(b.id)">Buchung stornieren</button>
+            }
+        </div>
+
+        @if (fehler()?.id === b.id) {
+        <p class="fehler">{{ fehler()?.text }}</p>
+        }
+    </li>
+    }
+</ul>
+}
+
+@if (fruehere().length > 0) {
+<h2>Frühere und stornierte</h2>
+<ul class="liste kompakt">
+    @for (b of fruehere(); track b.id) {
+    <li class="buchung">
+        <div class="kopf">
+            <div>
+                <h3>{{ b.jobTitle }}</h3>
+                <p class="betrieb">{{ b.companyName }}, {{ datum(b) }}</p>
+            </div>
+            <span class="status" [class.storniert]="b.status === 'CANCELLED'"
+                [class.teilgenommen]="b.status === 'ATTENDED'" [class.nicht-erschienen]="b.status === 'NO_SHOW'">
+                {{ statusText(b) }}
+            </span>
+        </div>
+        @if (b.status === 'ATTENDED') {
+        @if (b.reviewed) {
+        <p class="klein">Danke für deine Bewertung!</p>
+        } @else if (bewertenId() === b.id) {
+        <app-bewertungs-formular [bookingId]="b.id" (gespeichert)="bewertungGespeichert(b.id)"
+            (abgebrochen)="bewertenId.set(null)" />
+        } @else {
+        <div class="aktionen">
+            <button type="button" class="btn-neben" (click)="bewertungOeffnen(b.id)">
+                Probetag bewerten
+            </button>
+        </div>
+        }
+        }
+    </li>
+    }
+</ul>
+}
+}
+}
+}

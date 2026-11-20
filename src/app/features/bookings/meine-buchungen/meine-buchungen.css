@@ -1,0 +1,155 @@
+h1 {
+    margin: var(--space-5) 0 var(--space-3);
+}
+
+h2 {
+    margin: var(--space-5) 0 var(--space-3);
+}
+
+.meldung {
+    color: var(--grafit);
+}
+
+.leer {
+    max-width: 60ch;
+}
+
+.leer .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.liste {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    max-width: 720px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.buchung {
+    padding: var(--space-4);
+    background: var(--papier);
+    border: 1px solid var(--linie);
+    border-radius: var(--radius-md);
+}
+
+.kompakt .buchung {
+    padding: var(--space-3) var(--space-4);
+}
+
+.kopf {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--space-3);
+}
+
+.kopf h3 {
+    margin: 0;
+}
+
+.kopf h3 a {
+    color: var(--tinte);
+}
+
+.betrieb {
+    margin: var(--space-1) 0 0;
+    color: var(--grafit);
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.datum {
+    margin: var(--space-3) 0 var(--space-2);
+    font-family: var(--font-zahlen);
+    font-size: 16px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+.klein {
+    margin: var(--space-2) 0 0;
+    color: var(--grafit);
+    font-size: 14px;
+    line-height: 20px;
+}
+
+/* Status-Plaketten: Farbe UND Wort */
+.status {
+    flex-shrink: 0;
+    padding: 2px 10px;
+    border: 1px solid currentColor;
+    border-radius: var(--radius-full);
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+    white-space: nowrap;
+    color: var(--grafit);
+}
+
+.status.gebucht {
+    color: var(--erfolg);
+}
+
+.status.teilgenommen {
+    color: var(--blaumann);
+}
+
+.status.nicht-erschienen {
+    color: var(--fehler);
+}
+
+.aktionen {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2) var(--space-3);
+    margin-top: var(--space-3);
+}
+
+.frage {
+    flex-basis: 100%;
+    margin: 0;
+}
+
+/* Neben-Button mit Rand */
+.btn-neben {
+    min-height: 44px;
+    padding: 0 var(--space-3);
+    border: 1px solid var(--blaumann);
+    border-radius: var(--radius-md);
+    background: var(--papier);
+    color: var(--blaumann);
+    font: 500 16px/1 var(--font-sans);
+    cursor: pointer;
+}
+
+.btn-neben:hover {
+    background: var(--beton);
+}
+
+/* Für Aktionen, die etwas wegnehmen */
+.btn-gefahr {
+    min-height: 44px;
+    padding: 0 var(--space-3);
+    border: 1px solid var(--fehler);
+    border-radius: var(--radius-md);
+    background: var(--fehler);
+    color: var(--papier);
+    font: 500 16px/1 var(--font-sans);
+    cursor: pointer;
+}
+
+.btn-gefahr:disabled {
+    opacity: 0.55;
+    cursor: wait;
+}
+
+.fehler {
+    margin: var(--space-2) 0 0;
+    color: var(--fehler);
+}

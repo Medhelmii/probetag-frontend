@@ -1,0 +1,62 @@
+<section class="kopfbereich">
+    <h1>Meine Termine</h1>
+    <p class="einleitung">Hier siehst du alle Probetage deines Betriebs.</p>
+</section>
+
+@switch (zustand()) {
+@case ('laden') {
+<p>Termine werden geladen …</p>
+}
+@case ('fehler') {
+<div class="card">
+    <p>Deine Termine konnten nicht geladen werden.</p>
+    <button type="button" class="btn-primary" (click)="laden()">Erneut versuchen</button>
+</div>
+}
+@case ('fertig') {
+<h2>Kommende</h2>
+@if (kommende().length === 0) {
+<p class="leer">Du hast gerade keine kommenden Termine.</p>
+} @else {
+<ul class="liste">
+    @for (t of kommende(); track t.id) {
+    <li class="card">
+        <ng-container *ngTemplateOutlet="termin; context: { $implicit: t }" />
+    </li>
+    }
+</ul>
+}
+
+@if (fruehere().length > 0) {
+<h2>Vergangene und abgesagte</h2>
+<ul class="liste">
+    @for (t of fruehere(); track t.id) {
+    <li class="card frueher">
+        <ng-container *ngTemplateOutlet="termin; context: { $implicit: t }" />
+    </li>
+    }
+</ul>
+}
+}
+}
+
+<ng-template #termin let-t>
+    <div class="kopf">
+        <h3>{{ t.jobTitle }}</h3>
+        @if (t.status === 'CANCELLED') {
+        <span class="plakette abgesagt">Abgesagt</span>
+        }
+    </div>
+    <p class="zeit">{{ datumLang(t.startsAt) }}, {{ zeitspanne(t.startsAt, t.endsAt) }}</p>
+
+    <app-zollstock-leiste [startsAt]="t.startsAt" [endsAt]="t.endsAt" />
+
+    <div class="belegung">
+        <span class="kaestchen" aria-hidden="true">
+            @for (belegt of plaetze(t); track $index) {
+            <span class="platz" [class.belegt]="belegt"></span>
+            }
+        </span>
+        <span>{{ belegungText(t) }}</span>
+    </div>
+</ng-template>

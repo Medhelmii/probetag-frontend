@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { guestGuard } from './core/guards/auth.guards';
+import { guestGuard, roleGuard } from './core/guards/auth.guards';
 
 export const routes: Routes = [
     {
@@ -30,6 +30,20 @@ export const routes: Routes = [
         loadComponent: () =>
             import('./features/slots/termin-detail/termin-detail').then((m) => m.TerminDetail),
         title: 'Termin | Probetag',
+    },
+    {
+        path: 'meine-buchungen',
+        canActivate: [roleGuard('PARTICIPANT')],
+        loadComponent: () =>
+            import('./features/bookings/meine-buchungen/meine-buchungen').then((m) => m.MeineBuchungen),
+        title: 'Meine Buchungen | Probetag',
+    },
+    {
+        path: 'unternehmen',
+        canActivate: [roleGuard('COMPANY')],
+        title: 'Meine Termine – Probetag',
+        loadComponent: () =>
+            import('./features/company/meine-termine/meine-termine').then((m) => m.MeineTermine),
     },
     {
         path: '**',

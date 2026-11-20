@@ -1,0 +1,148 @@
+.bewertung {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--linie);
+}
+
+.skala {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.skala legend,
+.titel {
+    margin-bottom: var(--space-2);
+    font-weight: 500;
+}
+
+/* Fünf Felder nebeneinander, wie ein Stück Zollstock */
+.felder {
+    display: flex;
+    max-width: 320px;
+    border: 1px solid var(--tinte);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+}
+
+.feld {
+    flex: 1;
+    position: relative;
+}
+
+.feld+.feld {
+    border-left: 1px solid var(--tinte);
+}
+
+/* Der echte Radio-Button bleibt bedienbar, wird aber unsichtbar über das Feld gelegt */
+.feld input {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.feld span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    background: var(--papier);
+    font-family: var(--font-zahlen);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.feld input:hover+span {
+    background: var(--beton);
+}
+
+/* Gewählt: Zollstock-Gelb */
+.feld input:checked+span {
+    background: var(--zollstock);
+}
+
+/* Tastatur-Fokus sichtbar, obwohl der Radio-Button unsichtbar ist */
+.feld input:focus-visible+span {
+    outline: 3px solid var(--blaumann);
+    outline-offset: -3px;
+}
+
+.enden {
+    display: flex;
+    justify-content: space-between;
+    max-width: 320px;
+    margin-top: var(--space-1);
+    color: var(--grafit);
+    font-size: 14px;
+}
+
+textarea {
+    width: 100%;
+    max-width: 560px;
+    padding: 10px 12px;
+    background: var(--papier);
+    border: 1px solid var(--feldrand);
+    border-radius: var(--radius-sm);
+    color: var(--tinte);
+    font: inherit;
+}
+
+.optional,
+.hinweis {
+    color: var(--grafit);
+    font-weight: 400;
+}
+
+.hinweis {
+    margin: 0;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+    cursor: pointer;
+}
+
+.checkbox input {
+    width: 20px;
+    height: 20px;
+    margin: 2px 0 0;
+    accent-color: var(--blaumann);
+}
+
+.fehler {
+    margin: 0;
+    color: var(--fehler);
+}
+
+.aktionen {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.aktionen .btn-primary {
+    margin-top: var(--space-2);
+}
+
+.abbrechen {
+    margin-top: var(--space-2);
+    min-height: 44px;
+    padding: 0;
+    border: none;
+    background: none;
+    color: var(--blaumann);
+    font: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+}

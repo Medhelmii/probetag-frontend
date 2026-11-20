@@ -23,4 +23,7 @@ export class SlotService {
     findById(id: string): Observable<Slot> {
         return this.http.get<Slot>(`${this.url}/${id}`);
     }
+    mySlots(): Observable<Slot[]> {
+        return this.http.get<Slot[]>(`${this.url}/companies/me/slots`);
+    }
 }

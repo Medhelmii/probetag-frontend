@@ -1,0 +1,42 @@
+<form class="bewertung" [formGroup]="form" (ngSubmit)="senden()" novalidate>
+    <fieldset class="skala">
+        <legend>Wie war dein Probetag?</legend>
+        <div class="felder">
+            @for (p of punkte; track p) {
+            <label class="feld">
+                <input type="radio" formControlName="rating" [value]="p" />
+                <span>{{ p }}</span>
+            </label>
+            }
+        </div>
+        <div class="enden" aria-hidden="true">
+            <span>schlecht</span>
+            <span>sehr gut</span>
+        </div>
+    </fieldset>
+    @if (form.controls.rating.touched && form.controls.rating.invalid) {
+    <p class="fehler">Bitte wähle eine Zahl von 1 bis 5.</p>
+    }
+
+    <label for="kommentar-{{ bookingId() }}" class="titel">
+        Was hat dir gefallen, was nicht? <span class="optional">(optional)</span>
+    </label>
+    <textarea id="kommentar-{{ bookingId() }}" rows="3" formControlName="comment"></textarea>
+
+    <label class="checkbox">
+        <input type="checkbox" formControlName="interestedInJob" />
+        Ich habe Interesse an einer Stelle oder Ausbildung in diesem Betrieb
+    </label>
+    <p class="hinweis">Das sieht nur der Betrieb. Er kann dich dann kontaktieren.</p>
+
+    @if (fehler()) {
+    <p class="fehler">{{ fehler() }}</p>
+    }
+
+    <div class="aktionen">
+        <button type="submit" class="btn-primary" [disabled]="laeuft()">
+            {{ laeuft() ? 'Wird gesendet …' : 'Bewertung senden' }}
+        </button>
+        <button type="button" class="abbrechen" (click)="abgebrochen.emit()">Abbrechen</button>
+    </div>
+</form>
